@@ -35,7 +35,7 @@ command:
   php -v:
     exit-status: 0
     stdout:
-      - "8.1"
+      - "8.0"
   php -m:
     exit-status: 0
     stdout:
