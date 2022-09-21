@@ -1,10 +1,10 @@
-FROM php:7.4-alpine
+FROM php:8.1-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL maintainer="Christopher Stadler <cstadler@smthdiff.com>" \
-  PHP="7.4" \
+  PHP="8.1" \
   NODE="16" \
   org.label-schema.name="cstadler333/gitlab-ci-php" \
   org.label-schema.description="Docker image for build and test PHP applications with Gitlab CI" \
@@ -22,15 +22,15 @@ ENV GOSS_VERSION="0.3.18"
 ENV NODE_VERSION=16
 ENV NPM_VERSION=6
 ENV YARN_VERSION=latest
-ENV PHP_VERSION=7.4
+ENV PHP_VERSION=8.1
 
 WORKDIR /tmp
 
 COPY ./scripts/*.sh /tmp/
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer1
-COPY --from=mhart/alpine-node:${NODE_VERSION} /usr/bin/node /usr/bin/
-COPY --from=mhart/alpine-node:${NODE_VERSION} /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
+COPY --from=mhart/alpine-node:${NPM_VERSION} /usr/bin/node /usr/bin/
+COPY --from=mhart/alpine-node:${NPM_VERSION} /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
 
 # COPY INSTALL SCRIPTS
 RUN chmod +x /tmp/*.sh \

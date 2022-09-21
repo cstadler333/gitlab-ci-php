@@ -14,11 +14,13 @@
 
 ## Based on [Official PHP images](https://hub.docker.com/_/php/) and [edbizarro's Images](https://github.com/edbizarro/gitlab-ci-pipeline-php)
 
-> CURRENTLY ONLY SUPPORTS PHP 7.4 ALPINE!
+> CURRENTLY ONLY SUPPORTS ALPINE!
 
 - `7.4-alpine` [(7.4/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/7.4/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/7.4-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=7.4-alpine)
+- `8.0-alpine` [(8.0/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.0/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-alpine)
+- `8.1-alpine` [(8.1/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.1/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-alpine)
 
-All versions come with [Node 14](https://nodejs.org/en/), [Composer 1 and 2](https://getcomposer.org/) and [Yarn](https://yarnpkg.com)
+All versions come with [Node 16](https://nodejs.org/en/), [Composer 1 and 2](https://getcomposer.org/) and [Yarn](https://yarnpkg.com)
 
 ---
 
@@ -37,7 +39,7 @@ variables:
   APP_ENV: prod
   DATABASE_URL: mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql/$MYSQL_DATABASE
 
-image: cstadler333/gitlab-ci-php:7.4-alpine
+image: cstadler333/gitlab-ci-php:8.1-alpine
 services:
   - mariadb:10.5
 
@@ -71,7 +73,7 @@ cache:
     - node_modules/
     - vendor/
 
-image: cstadler333/gitlab-ci-php:7.4-alpine
+image: cstadler333/gitlab-ci-php:8.1-alpine
 services:
   - mariadb:10.5
 
