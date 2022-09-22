@@ -20,7 +20,7 @@ ENV COMPOSER_HOME=$HOME/.composer
 ENV PATH=$HOME/.yarn/bin:$PATH
 ENV GOSS_VERSION="0.3.18"
 ENV NODE_VERSION=16
-ENV NPM_VERSION=6
+ENV NPM_VERSION=8
 ENV YARN_VERSION=latest
 ENV PHP_VERSION=8.1
 
@@ -29,8 +29,8 @@ WORKDIR /tmp
 COPY ./php/8.1/alpine/scripts/*.sh /tmp/
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer1
-COPY --from=mhart/alpine-node:16 /usr/bin/node /usr/bin/
-COPY --from=mhart/alpine-node:16 /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
+COPY --from=node:16-alpine /usr/bin/node /usr/bin/
+COPY --from=node:16-alpine /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
 
 # COPY INSTALL SCRIPTS
 RUN chmod +x /tmp/*.sh \
