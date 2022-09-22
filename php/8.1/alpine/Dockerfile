@@ -30,8 +30,8 @@ COPY ./php/8.1/alpine/scripts/*.sh /tmp/
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer1
 COPY --from=node:16-alpine /usr/local/bin/node /usr/local/bin/
-COPY --from=node:16-alpine /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
 COPY --from=node:16-alpine /usr/local/lib/* /usr/local/lib/
+COPY --from=node:16-alpine /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
 
 # COPY INSTALL SCRIPTS
 RUN chmod +x /tmp/*.sh \

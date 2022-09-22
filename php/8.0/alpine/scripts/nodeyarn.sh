@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
+ln -s /usr/local/lib/npm/bin/npm-cli.js /usr/local/bin/npm
 
 npm i -g --force npm@${NPM_VERSION}
 
