@@ -21,9 +21,9 @@ apk --update --no-cache add \
 
 # persistent / runtime deps
 apk add --update --no-cache --virtual .persistent-deps \
-		ca-certificates \
-		tar \
-		xz \
+    ca-certificates \
+    tar \
+    xz \
     curl
 
 apk add --update --no-cache \

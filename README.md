@@ -119,4 +119,5 @@ Deploy Master:
 
 ### Recommended
 
+- [Gitlab CI Deployer](https://github.com/cstadler333/gitlab-ci-deployer)
 - [Deployer](https://deployer.org/docs/7.x/recipe/symfony)

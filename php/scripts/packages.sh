@@ -15,27 +15,27 @@ echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 echo 'APT::Install-Recommends "false";' > /etc/apt/apt.conf
 export DEBIAN_FRONTEND=noninteractive
 
-  dpkg-reconfigure -f noninteractive tzdata \
-  && apt-get update \
-  && apt-get install -yq \
-      apt-transport-https \
-      apt-utils \
-      ca-certificates \
-  && apt-get install -yq \
-      build-essential \
-      curl \
-      git \
-      gnupg2 \
-      jq \
-      libc-client-dev \
-      mariadb-client \
-      mongo-tools \
-      openssh-client \
-      python \
-      python-dev \
-      rsync \
-      sudo \
-      unzip \
-      zip \
-      zlib1g-dev \
-      && rm -rf /var/lib/apt/lists/*
+dpkg-reconfigure -f noninteractive tzdata \
+    && apt-get update \
+    && apt-get install -yq \
+        apt-transport-https \
+        apt-utils \
+        ca-certificates \
+    && apt-get install -yq \
+        build-essential \
+        curl \
+        git \
+        gnupg2 \
+        jq \
+        libc-client-dev \
+        mariadb-client \
+        mongo-tools \
+        openssh-client \
+        python \
+        python-dev \
+        rsync \
+        sudo \
+        unzip \
+        zip \
+        zlib1g-dev \
+        && rm -rf /var/lib/apt/lists/*

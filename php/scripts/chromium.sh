@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Installing Chromium for Dusk
 apt-get update \
-  && apt-get install -yq \
+    && apt-get install -yq \
     libgconf-2-4 \
     libnss3 \
     libxi6 \
