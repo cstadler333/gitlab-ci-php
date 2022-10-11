@@ -36,7 +36,7 @@ apk --update --no-cache add \
 
 apk --update --no-cache add libzip-dev libsodium-dev
 
-if [[ $PHP_VERSION == "8.0" ]]; then
+if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" ]]; then
     docker-php-ext-configure ldap
     docker-php-ext-install -j "$(nproc)" ldap
     PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
@@ -52,7 +52,7 @@ else
     docker-php-source delete
 fi
 
-if [[ $PHP_VERSION == "8.0" || $PHP_VERSION == "7.4" ]]; then
+if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" || $PHP_VERSION == "7.4" ]]; then
     docker-php-ext-configure gd --with-freetype --with-jpeg
 else
     docker-php-ext-configure gd \
@@ -102,7 +102,7 @@ docker-php-source extract \
     && apk del .cassandra-deps \
     && docker-php-source delete
 
-if [[ $PHP_VERSION == "8.0" ]]; then
+if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" ]]; then
     #AMQP
     docker-php-source extract \
         && mkdir /usr/src/php/ext/amqp \
@@ -176,7 +176,7 @@ git clone "https://github.com/php-memcached-dev/php-memcached.git" \
 
 echo "memory_limit=1G" > /usr/local/etc/php/conf.d/zz-conf.ini
 
-if [[ $PHP_VERSION == "8.0" ]]; then
+if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" ]]; then
     # https://xdebug.org/docs/upgrade_guide#changed-xdebug.coverage_enable
     echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/20-xdebug.ini
 else
