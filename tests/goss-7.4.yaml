@@ -44,7 +44,6 @@ command:
       - bcmath
       - bz2
       - calendar
-      - cassandra
       - exif
       - gd
       - gmp
@@ -68,20 +67,22 @@ command:
       - xdebug
       - xml
       - xmlrpc
-      - zip
       - xsl
+      - zip
 
 file:
   /usr/local/etc/php/conf.d/20-xdebug.ini:
     exists: true
     contains:
-      - xdebug.coverage_enable
+      - xdebug.mode
   /usr/local/etc/php/conf.d/zz-conf.ini:
     exists: true
     contains:
       - memory_limit
   /usr/local/etc/php/conf.d/opcache-recommended.ini:
     exists: true
+    contains:
+      - opcache.enable
   /usr/local/etc/php/conf.d/apcu-recommended.ini:
     exists: true
   /home/php:
