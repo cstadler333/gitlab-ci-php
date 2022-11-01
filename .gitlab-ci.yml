@@ -1,43 +1,43 @@
 .build: &build
-    stage: build
-    script:
-        - docker pull php:$IMAGE_VERSION || true
-        - docker pull $NAMESPACE:$IMAGE_VERSION || true
-        - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION/alpine/Dockerfile .
-        - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION.yaml v
-        - docker push $NAMESPACE:$IMAGE_VERSION
+  stage: build
+  script:
+    - docker pull php:$IMAGE_VERSION || true
+    - docker pull $NAMESPACE:$IMAGE_VERSION || true
+    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION/alpine/Dockerfile .
+    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION.yaml v
+    - docker push $NAMESPACE:$IMAGE_VERSION
 
 variables:
-    DOCKER_DRIVER: overlay2
-    NAMESPACE: cstadler333/gitlab-ci-php
+  DOCKER_DRIVER: overlay2
+  NAMESPACE: cstadler333/gitlab-ci-php
 
 image: docker:latest
 services:
-    - docker:dind
+  - docker:dind
 
 before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
 
 Alpine 7.4:
-    <<: *build
-    only:
-        - master
-    variables:
-        PHP_VERSION: "7.4"
-        IMAGE_VERSION: "7.4-alpine"
+  <<: *build
+  only:
+    - main
+  variables:
+    PHP_VERSION: "7.4"
+    IMAGE_VERSION: "7.4-alpine"
 
 Alpine 8.0:
-    <<: *build
-    only:
-        - master
-    variables:
-        PHP_VERSION: "8.0"
-        IMAGE_VERSION: "8.0-alpine"
+  <<: *build
+  only:
+    - main
+  variables:
+    PHP_VERSION: "8.0"
+    IMAGE_VERSION: "8.0-alpine"
 
 Alpine 8.1:
-    <<: *build
-    only:
-        - master
-    variables:
-        PHP_VERSION: "8.1"
-        IMAGE_VERSION: "8.1-alpine"
+  <<: *build
+  only:
+    - main
+  variables:
+    PHP_VERSION: "8.1"
+    IMAGE_VERSION: "8.1-alpine"

@@ -21,6 +21,7 @@
 - `8.1-alpine` [(8.1/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.1/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-alpine)
 
 All versions come with:
+
 - [Composer 2](https://getcomposer.org/)
 - [Node 18](https://nodejs.org/en/)
 - [NPM 8](https://www.npmjs.com/)
@@ -36,85 +37,85 @@ All versions come with:
 
 ```yaml
 variables:
-  MYSQL_ROOT_PASSWORD: root
-  MYSQL_USER: symfony
-  MYSQL_PASSWORD: password
-  MYSQL_DATABASE: project
-  APP_ENV: prod
-  DATABASE_URL: mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql/$MYSQL_DATABASE
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: symfony
+    MYSQL_PASSWORD: password
+    MYSQL_DATABASE: project
+    APP_ENV: prod
+    DATABASE_URL: mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql/$MYSQL_DATABASE
 
 image: cstadler333/gitlab-ci-php:8.1-alpine
 services:
-  - mariadb:10.5
+    - mariadb:10.5
 
 build:
-  stage: build
-  before_script:
-    - npm install
-  script:
-    - npm run build
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress
+    stage: build
+    before_script:
+        - npm install
+    script:
+        - npm run build
+        - composer install --prefer-dist --no-ansi --no-interaction --no-progress
 ```
 
 #### Advanced `.gitlab-ci.yml` using MariaDB service, stages, templates and cache
 
 ```yaml
 stages:
-  - build
-  - deploy
+    - build
+    - deploy
 
 variables:
-  MYSQL_ROOT_PASSWORD: root
-  MYSQL_USER: symfony
-  MYSQL_PASSWORD: password
-  MYSQL_DATABASE: project
-  APP_ENV: prod
-  DATABASE_URL: mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql/$MYSQL_DATABASE
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: symfony
+    MYSQL_PASSWORD: password
+    MYSQL_DATABASE: project
+    APP_ENV: prod
+    DATABASE_URL: mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql/$MYSQL_DATABASE
 
 cache:
-  key: $CI_COMMIT_REF_NAME
-  paths:
-    - node_modules/
-    - vendor/
+    key: $CI_COMMIT_REF_NAME
+    paths:
+        - node_modules/
+        - vendor/
 
 image: cstadler333/gitlab-ci-php:8.1-alpine
 services:
-  - mariadb:10.5
+    - mariadb:10.5
 
 .build_template: &build
-  stage: build
-  before_script:
-    - npm install --force
-  script:
-    - npm run build
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress
+    stage: build
+    before_script:
+        - npm install --force
+    script:
+        - npm run build
+        - composer install --prefer-dist --no-ansi --no-interaction --no-progress
 
 .deploy_template: &deploy
-  stage: deploy
-  before_script:
-    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    stage: deploy
+    before_script:
+        - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+        - eval $(ssh-agent -s)
+        - ssh-add <(echo "$SSH_PRIVATE_KEY")
+        - mkdir -p ~/.ssh
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 Build Master:
-  <<: *build
-  only:
-    - master
+    <<: *build
+    only:
+        - master
 
 Deploy Master:
-  <<: *deploy
-  only:
-    - master
-  script:
-    - rsync -a --progress --human-readable --delete
-      --exclude .git
-      --exclude node_modules
-      --exclude var
-      --exclude vendor
-      .
-      user@server:path
+    <<: *deploy
+    only:
+        - master
+    script:
+        - rsync -a --progress --human-readable --delete
+            --exclude .git
+            --exclude node_modules
+            --exclude var
+            --exclude vendor
+            .
+            user@server:path
 ```
 
 ---
