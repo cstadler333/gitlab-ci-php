@@ -19,6 +19,7 @@
 - `7.4-alpine` [(7.4/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/7.4/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/7.4-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=7.4-alpine)
 - `8.0-alpine` [(8.0/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.0/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-alpine)
 - `8.1-alpine` [(8.1/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.1/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-alpine)
+- `8.2-alpine` [(8.2/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.2/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.2-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.2-alpine)
 
 All versions come with:
 
