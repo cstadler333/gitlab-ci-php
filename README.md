@@ -20,7 +20,11 @@
 - `8.0-alpine` [(8.0/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.0/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-alpine)
 - `8.1-alpine` [(8.1/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.1/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-alpine)
 
-All versions come with [Node 16](https://nodejs.org/en/), [Composer 2](https://getcomposer.org/) and [Yarn](https://yarnpkg.com)
+All versions come with:
+- [Composer 2](https://getcomposer.org/)
+- [Node 18](https://nodejs.org/en/)
+- [NPM 8](https://www.npmjs.com/)
+- [Yarn](https://yarnpkg.com)
 
 ---
 

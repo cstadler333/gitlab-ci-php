@@ -36,31 +36,23 @@ apk --update --no-cache add \
 
 apk --update --no-cache add libzip-dev libsodium-dev
 
-if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" ]]; then
-    docker-php-ext-configure ldap
-    docker-php-ext-install -j "$(nproc)" ldap
-    PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
-    docker-php-ext-install -j "$(nproc)" imap
-    docker-php-ext-install -j "$(nproc)" exif pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql pdo_pgsql pgsql soap xsl zip gmp
-    docker-php-source delete
-else
+if [[ $PHP_VERSION == "7.4" ]]; then
     docker-php-ext-configure ldap
     docker-php-ext-install -j "$(nproc)" ldap
     PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
     docker-php-ext-install -j "$(nproc)" imap
     docker-php-ext-install -j "$(nproc)" exif xmlrpc pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql pdo_pgsql pgsql soap xsl zip gmp
     docker-php-source delete
+else
+    docker-php-ext-configure ldap
+    docker-php-ext-install -j "$(nproc)" ldap
+    PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+    docker-php-ext-install -j "$(nproc)" imap
+    docker-php-ext-install -j "$(nproc)" exif pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql pdo_pgsql pgsql soap xsl zip gmp
+    docker-php-source delete
 fi
 
-if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" || $PHP_VERSION == "7.4" ]]; then
-    docker-php-ext-configure gd --with-freetype --with-jpeg
-else
-    docker-php-ext-configure gd \
-        --with-gd \
-        --with-freetype-dir=/usr/include \
-        --with-jpeg-dir=/usr/include \
-        --with-png-dir=/usr/include
-fi
+docker-php-ext-configure gd --with-freetype --with-jpeg
 
 docker-php-ext-install -j "$(nproc)" gd
 
@@ -102,7 +94,10 @@ docker-php-source extract \
     && apk del .cassandra-deps \
     && docker-php-source delete
 
-if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" ]]; then
+if [[ $PHP_VERSION == "7.4" ]]; then
+    pecl install amqp imagick mongodb \
+        && docker-php-ext-enable amqp imagick mongodb
+else
     #AMQP
     docker-php-source extract \
         && mkdir /usr/src/php/ext/amqp \
@@ -137,9 +132,6 @@ if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" ]]; then
 
     pecl install mongodb \
         && docker-php-ext-enable mongodb
-else
-    pecl install amqp imagick mongodb \
-        && docker-php-ext-enable amqp imagick mongodb
 fi
 
 git clone "https://github.com/php-memcached-dev/php-memcached.git" \
@@ -176,9 +168,9 @@ git clone "https://github.com/php-memcached-dev/php-memcached.git" \
 
 echo "memory_limit=1G" > /usr/local/etc/php/conf.d/zz-conf.ini
 
-if [[ $PHP_VERSION == "8.1" || $PHP_VERSION == "8.0" ]]; then
+if [[ $PHP_VERSION == "7.4" ]]; then
+    echo 'xdebug.coverage_enable=1' > /usr/local/etc/php/conf.d/20-xdebug.ini
+else
     # https://xdebug.org/docs/upgrade_guide#changed-xdebug.coverage_enable
     echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/20-xdebug.ini
-else
-    echo 'xdebug.coverage_enable=1' > /usr/local/etc/php/conf.d/20-xdebug.ini
 fi
