@@ -56,3 +56,8 @@ Alpine 8.1:
   variables:
     PHP_VERSION: "8.1"
     IMAGE_VERSION: "8.1-alpine"
+  after_script:
+    - docker tag $NAMESPACE:$IMAGE_TAG $NAMESPACE:latest-alpine
+    - docker push $NAMESPACE:latest-alpine
+    - docker tag $NAMESPACE:$IMAGE_TAG $NAMESPACE:latest
+    - docker push $NAMESPACE:latest
