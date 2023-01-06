@@ -21,29 +21,26 @@ apk --update --no-cache add \
     libltdl \
     libmemcached-dev \
     libpng-dev \
+    libsodium-dev \
     libtool \
     libxml2-dev \
     libxslt-dev \
-    openldap-dev \
+    linux-headers \
     pcre-dev \
-    postgresql-dev \
     rabbitmq-c \
     rabbitmq-c-dev \
     readline-dev \
     sqlite-dev \
+    libzip-dev \
     zlib-dev
 
-apk --update --no-cache add libzip-dev libsodium-dev
-
-docker-php-ext-configure ldap
-docker-php-ext-install -j "$(nproc)" ldap
 PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 docker-php-ext-install -j "$(nproc)" imap
 
 if ! [[ $PHP_VERSION == "7.4" ]]; then
-    docker-php-ext-install -j "$(nproc)" exif pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql pdo_pgsql pgsql soap xsl zip gmp
+    docker-php-ext-install -j "$(nproc)" exif pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql soap xsl zip gmp
 else
-    docker-php-ext-install -j "$(nproc)" exif xmlrpc pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql pdo_pgsql pgsql soap xsl zip gmp
+    docker-php-ext-install -j "$(nproc)" exif xmlrpc pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql soap xsl zip gmp
 fi
 
 docker-php-source delete
@@ -51,43 +48,8 @@ docker-php-source delete
 docker-php-ext-configure gd --with-freetype --with-jpeg
 docker-php-ext-install -j "$(nproc)" gd
 
-if ! [[ $PHP_VERSION == "8.2" ]]; then
-    pecl install amqp imagick memcached \
-        && docker-php-ext-enable amqp imagick memcached
-else
-    #AMQP
-    docker-php-source extract \
-        && mkdir /usr/src/php/ext/amqp \
-        && curl -L https://github.com/php-amqp/php-amqp/archive/master.tar.gz | tar -xzC /usr/src/php/ext/amqp --strip-components=1 \
-        && docker-php-ext-install amqp \
-        && docker-php-source delete
-
-    #Imagick
-    mkdir /usr/local/src \
-        && cd /usr/local/src \
-        && git clone https://github.com/Imagick/imagick \
-        && cd imagick \
-        && phpize \
-        && ./configure \
-        && make \
-        && make install \
-        && cd .. \
-        && rm -rf imagick \
-        && docker-php-ext-enable imagick
-
-    #Memcached
-    git clone "https://github.com/php-memcached-dev/php-memcached.git" \
-        && cd php-memcached \
-        && phpize \
-        && ./configure --disable-memcached-sasl \
-        && make \
-        && make install \
-        && cd ../ && rm -rf php-memcached \
-        && docker-php-ext-enable memcached
-fi
-
-pecl install apcu mongodb redis xdebug \
-    && docker-php-ext-enable apcu mongodb redis xdebug
+pecl install apcu amqp imagick memcached redis xdebug \
+    && docker-php-ext-enable apcu amqp imagick memcached redis xdebug
 
 { \
     echo 'opcache.enable=1'; \
