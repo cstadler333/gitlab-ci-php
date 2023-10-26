@@ -1,10 +1,10 @@
-FROM php:8.1-alpine
+FROM php:8.2-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL maintainer="Christopher Stadler <cstadler@smthdiff.com>" \
-    PHP="8.1" \
+    PHP="8.2" \
     NODE="16" \
     org.label-schema.name="cstadler333/gitlab-ci-php" \
     org.label-schema.description="Docker image for build and test PHP applications with Gitlab CI" \
@@ -22,7 +22,7 @@ ENV GOSS_VERSION="0.4.2"
 ENV NODE_VERSION=16
 ENV NPM_VERSION=8
 ENV YARN_VERSION=latest
-ENV PHP_VERSION=8.1
+ENV PHP_VERSION=8.2
 
 WORKDIR /tmp
 

@@ -18,7 +18,7 @@ ENV IMAGE_USER=php
 ENV HOME=/home/$IMAGE_USER
 ENV COMPOSER_HOME=$HOME/.composer
 ENV PATH=$HOME/.yarn/bin:$PATH
-ENV GOSS_VERSION="0.3.23"
+ENV GOSS_VERSION="0.4.2"
 ENV NODE_VERSION=18
 ENV NPM_VERSION=9
 ENV YARN_VERSION=latest
@@ -47,7 +47,5 @@ RUN chmod +x /tmp/*.sh \
     && bash ./cleanup.sh
 
 USER $IMAGE_USER
-
 WORKDIR /var/www/html
-
 CMD ["php", "-a"]

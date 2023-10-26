@@ -5,9 +5,11 @@ set -euo pipefail
 apk --update --no-cache add \
     bzip2 \
     bzip2-dev \
+    curl \
     curl-dev \
     cyrus-sasl-dev \
     freetype-dev \
+    gnupg \
     gmp-dev \
     icu-dev \
     imagemagick \

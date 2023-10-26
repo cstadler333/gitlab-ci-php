@@ -99,3 +99,18 @@ Alpine 8.2:
     - docker push $NAMESPACE:latest-alpine
     - docker tag $NAMESPACE:$IMAGE_VERSION $NAMESPACE:latest
     - docker push $NAMESPACE:latest
+
+Alpine 8.2 Node 16:
+  stage: build
+  only:
+    - main
+  variables:
+    PHP_VERSION: "8.2"
+    IMAGE_VERSION: "8.2-node16-alpine"
+    BASE_IMAGE_VERSION: "8.2-alpine"
+  script:
+    - docker pull php:$BASE_IMAGE_VERSION || true
+    - docker pull $NAMESPACE:$IMAGE_VERSION || true
+    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION-node16/alpine/Dockerfile .
+    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION-node16.yaml v
+    - docker push $NAMESPACE:$IMAGE_VERSION
