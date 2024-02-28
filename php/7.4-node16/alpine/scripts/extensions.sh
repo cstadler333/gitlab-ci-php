@@ -9,9 +9,9 @@ apk --update --no-cache add \
     cyrus-sasl-dev \
     freetype-dev \
     gmp-dev \
+    graphicsmagick \
+    graphicsmagick-dev \
     icu-dev \
-    imagemagick \
-    imagemagick-dev \
     imap-dev \
     krb5-dev \
     libbz2 \
@@ -37,19 +37,15 @@ apk --update --no-cache add \
 PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 docker-php-ext-install -j "$(nproc)" imap
 
-if ! [[ $PHP_VERSION == "7.4" ]]; then
-    docker-php-ext-install -j "$(nproc)" exif pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql soap xsl zip gmp
-else
-    docker-php-ext-install -j "$(nproc)" exif xmlrpc pcntl bcmath bz2 calendar intl mysqli opcache pdo_mysql soap xsl zip gmp
-fi
+docker-php-ext-install -j "$(nproc)" bcmath bz2 calendar exif gmp intl mysqli opcache pcntl pdo_mysql soap xmlrpc xsl zip
 
 docker-php-source delete
 
 docker-php-ext-configure gd --with-freetype --with-jpeg
 docker-php-ext-install -j "$(nproc)" gd
 
-pecl install apcu amqp imagick memcached redis xdebug-3.1.6 \
-    && docker-php-ext-enable apcu amqp imagick memcached redis xdebug
+pecl install apcu amqp gmagick-beta memcached redis xdebug-3.1.6 \
+    && docker-php-ext-enable apcu amqp gmagick memcached redis xdebug
 
 { \
     echo 'opcache.enable=1'; \

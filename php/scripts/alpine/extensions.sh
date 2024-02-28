@@ -39,11 +39,7 @@ apk --update --no-cache add \
 PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 docker-php-ext-install -j "$(nproc)" imap
 
-if ! [[ $PHP_VERSION == "7.4" ]]; then
-    docker-php-ext-install -j "$(nproc)" bcmath bz2 calendar exif gmp intl mysqli opcache pcntl pdo_mysql soap xsl zip
-else
-    docker-php-ext-install -j "$(nproc)" bcmath bz2 calendar exif gmp intl mysqli opcache pcntl pdo_mysql soap xmlrpc xsl zip
-fi
+docker-php-ext-install -j "$(nproc)" bcmath bz2 calendar exif gmp intl mysqli opcache pcntl pdo_mysql soap xsl zip
 
 docker-php-source delete
 
