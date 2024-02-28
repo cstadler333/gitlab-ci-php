@@ -46,9 +46,9 @@ command:
       - calendar
       - exif
       - gd
+      - gmagick
       - gmp
       - iconv
-      - imagick
       - imap
       - intl
       - mbstring
