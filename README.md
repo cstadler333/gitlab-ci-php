@@ -20,12 +20,13 @@
 - `8.0-alpine` [(8.0/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.0/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-alpine)
 - `8.1-alpine` [(8.1/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.1/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-alpine)
 - `8.2-alpine` [(8.2/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.2/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.2-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.2-alpine)
+- `8.3-alpine` [(8.3/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.3/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.3-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.3-alpine)
 
 All versions come with:
 
 - [Composer 2](https://getcomposer.org/)
 - [Node 18](https://nodejs.org/en/)
-- [NPM 8](https://www.npmjs.com/)
+- [NPM 10](https://www.npmjs.com/)
 - [Yarn](https://yarnpkg.com)
 
 ---
@@ -45,9 +46,9 @@ variables:
     APP_ENV: prod
     DATABASE_URL: mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql/$MYSQL_DATABASE
 
-image: cstadler333/gitlab-ci-php:8.1-alpine
+image: cstadler333/gitlab-ci-php:8.3-alpine
 services:
-    - mariadb:10.5
+    - mariadb:10.11
 
 build:
     stage: build
@@ -79,9 +80,9 @@ cache:
         - node_modules/
         - vendor/
 
-image: cstadler333/gitlab-ci-php:8.1-alpine
+image: cstadler333/gitlab-ci-php:8.3-alpine
 services:
-    - mariadb:10.5
+    - mariadb:10.11
 
 .build_template: &build
     stage: build
