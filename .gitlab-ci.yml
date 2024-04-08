@@ -3,7 +3,7 @@
   script:
     - docker pull php:$IMAGE_VERSION || true
     - docker pull $NAMESPACE:$IMAGE_VERSION || true
-    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION/alpine/Dockerfile .
+    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --provenance=mode=min -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION/alpine/Dockerfile .
     - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION.yaml v
     - docker push $NAMESPACE:$IMAGE_VERSION
 
