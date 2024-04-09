@@ -68,15 +68,15 @@ command:
 file:
   /usr/local/etc/php/conf.d/20-xdebug.ini:
     exists: true
-    contains:
+    contents:
       - xdebug.mode
   /usr/local/etc/php/conf.d/zz-conf.ini:
     exists: true
-    contains:
+    contents:
       - memory_limit
   /usr/local/etc/php/conf.d/opcache-recommended.ini:
     exists: true
-    contains:
+    contents:
       - opcache.enable
   /usr/local/etc/php/conf.d/apcu-recommended.ini:
     exists: true
