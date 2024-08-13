@@ -73,25 +73,25 @@ before_script:
 #    IMAGE_VERSION: "7.4-node16-alpine"
 #    BASE_IMAGE_VERSION: "7.4-alpine"
 
-Alpine 8.0:
-  <<: *build
-  variables:
-    PHP_VERSION: "8.0"
-    IMAGE_VERSION: "8.0-alpine"
+#Alpine 8.0:
+#  <<: *build
+#  variables:
+#    PHP_VERSION: "8.0"
+#    IMAGE_VERSION: "8.0-alpine"
 
-Alpine 8.0 Node 16:
-  <<: *build-16
-  variables:
-    PHP_VERSION: "8.0"
-    IMAGE_VERSION: "8.0-node16-alpine"
-    BASE_IMAGE_VERSION: "8.0-alpine"
+#Alpine 8.0 Node 16:
+#  <<: *build-16
+#  variables:
+#    PHP_VERSION: "8.0"
+#    IMAGE_VERSION: "8.0-node16-alpine"
+#    BASE_IMAGE_VERSION: "8.0-alpine"
 
-Alpine 8.0 Node 18:
-  <<: *build-18
-  variables:
-    PHP_VERSION: "8.0"
-    IMAGE_VERSION: "8.0-node18-alpine"
-    BASE_IMAGE_VERSION: "8.0-alpine"
+#Alpine 8.0 Node 18:
+#  <<: *build-18
+#  variables:
+#    PHP_VERSION: "8.0"
+#    IMAGE_VERSION: "8.0-node18-alpine"
+#    BASE_IMAGE_VERSION: "8.0-alpine"
 
 Alpine 8.1:
   <<: *build

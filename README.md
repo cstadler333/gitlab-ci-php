@@ -25,7 +25,7 @@
 All versions come with:
 
 - [Composer 2](https://getcomposer.org/)
-- [Node 18](https://nodejs.org/en/)
+- [Node 20](https://nodejs.org/en/)
 - [NPM 10](https://www.npmjs.com/)
 - [Yarn](https://yarnpkg.com)
 
