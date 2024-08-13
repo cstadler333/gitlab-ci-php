@@ -1,10 +1,10 @@
-FROM php:7.4-alpine
+FROM php:8.3-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL maintainer="Christopher Stadler <cstadler@smthdiff.com>" \
-    PHP="7.4" \
+    PHP="8.3" \
     NODE="18" \
     org.label-schema.name="cstadler333/gitlab-ci-php" \
     org.label-schema.description="Docker image for build and test PHP applications with Gitlab CI" \
@@ -22,12 +22,11 @@ ENV GOSS_VERSION="0.4.8"
 ENV NODE_VERSION=18
 ENV NPM_VERSION=10
 ENV YARN_VERSION=latest
-ENV PHP_VERSION=7.4
+ENV PHP_VERSION=8.3
 
 WORKDIR /tmp
 
 COPY ./php/scripts/alpine/*.sh /tmp/
-COPY ./php/7.4/alpine/scripts/*.sh /tmp/
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 COPY --from=node:18-alpine /usr/local/bin/node /usr/local/bin/
 COPY --from=node:18-alpine /usr/local/lib/* /usr/local/lib/
