@@ -4,7 +4,6 @@
     - main
   script:
     - docker pull php:$PHP_VERSION-alpine || true
-    - docker pull node:$NODE_VERSION-alpine || true
     - docker pull $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine || true
     - docker build --compress --cache-from $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine --build-arg PHP_VERSION=$PHP_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine -f php7/$NODE_VERSION/Dockerfile .
     - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine goss -g tests/goss-$PHP_VERSION-$NODE_VERSION.yaml v
@@ -16,7 +15,6 @@
     - main
   script:
     - docker pull php:$PHP_VERSION-alpine || true
-    - docker pull node:$NODE_VERSION-alpine || true
     - docker pull $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine || true
     - docker build --compress --cache-from $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine --build-arg PHP_VERSION=$PHP_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine -f php/$NODE_VERSION/Dockerfile .
     - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine goss -g tests/goss-$PHP_VERSION-$NODE_VERSION.yaml v
