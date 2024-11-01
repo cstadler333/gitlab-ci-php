@@ -1,46 +1,26 @@
+.build7: &build7
+  stage: build
+  only:
+    - main
+  script:
+    - docker pull php:$PHP_VERSION-alpine || true
+    - docker pull node:$NODE_VERSION-alpine || true
+    - docker pull $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine || true
+    - docker build --compress --cache-from $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine --build-arg PHP_VERSION=$PHP_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine -f php7/$NODE_VERSION/Dockerfile .
+    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine goss -g tests/goss-$PHP_VERSION-$NODE_VERSION.yaml v
+    - docker push $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine
+
 .build: &build
   stage: build
   only:
     - main
   script:
-    - docker pull php:$IMAGE_VERSION || true
-    - docker pull $NAMESPACE:$IMAGE_VERSION || true
-    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION/alpine/Dockerfile .
-    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION.yaml v
-    - docker push $NAMESPACE:$IMAGE_VERSION
-
-.build-14: &build-14
-  stage: build
-  only:
-    - main
-  script:
-    - docker pull php:$BASE_IMAGE_VERSION || true
-    - docker pull $NAMESPACE:$IMAGE_VERSION || true
-    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION-node14/alpine/Dockerfile .
-    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION-node14.yaml v
-    - docker push $NAMESPACE:$IMAGE_VERSION
-
-.build-16: &build-16
-  stage: build
-  only:
-    - main
-  script:
-    - docker pull php:$BASE_IMAGE_VERSION || true
-    - docker pull $NAMESPACE:$IMAGE_VERSION || true
-    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION-node16/alpine/Dockerfile .
-    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION-node16.yaml v
-    - docker push $NAMESPACE:$IMAGE_VERSION
-
-.build-18: &build-18
-  stage: build
-  only:
-    - main
-  script:
-    - docker pull php:$BASE_IMAGE_VERSION || true
-    - docker pull $NAMESPACE:$IMAGE_VERSION || true
-    - docker build --compress --cache-from $NAMESPACE:$IMAGE_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$IMAGE_VERSION -f php/$PHP_VERSION-node18/alpine/Dockerfile .
-    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$IMAGE_VERSION goss -g tests/goss-$PHP_VERSION-node18.yaml v
-    - docker push $NAMESPACE:$IMAGE_VERSION
+    - docker pull php:$PHP_VERSION-alpine || true
+    - docker pull node:$NODE_VERSION-alpine || true
+    - docker pull $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine || true
+    - docker build --compress --cache-from $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine --build-arg PHP_VERSION=$PHP_VERSION --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') -t $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine -f php/$NODE_VERSION/Dockerfile .
+    - docker run -t --rm -v $(pwd):/var/www/html $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine goss -g tests/goss-$PHP_VERSION-$NODE_VERSION.yaml v
+    - docker push $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -53,107 +33,111 @@ services:
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
 
-#Alpine 7.4:
-#  <<: *build
-#  variables:
-#    PHP_VERSION: "7.4"
-#    IMAGE_VERSION: "7.4-alpine"
+Alpine 7.4 Node 14:
+  <<: *build7
+  variables:
+    PHP_VERSION: "7.4"
+    NODE_VERSION: "node14"
 
-#Alpine 7.4 Node 14:
-#  <<: *build-14
-#  variables:
-#    PHP_VERSION: "7.4"
-#    IMAGE_VERSION: "7.4-node14-alpine"
-#    BASE_IMAGE_VERSION: "7.4-alpine"
+Alpine 7.4 Node 16:
+  <<: *build7
+  variables:
+    PHP_VERSION: "7.4"
+    NODE_VERSION: "node16"
 
-#Alpine 7.4 Node 16:
-#  <<: *build-16
-#  variables:
-#    PHP_VERSION: "7.4"
-#    IMAGE_VERSION: "7.4-node16-alpine"
-#    BASE_IMAGE_VERSION: "7.4-alpine"
+Alpine 7.4 Node 18:
+  <<: *build7
+  variables:
+    PHP_VERSION: "7.4"
+    NODE_VERSION: "node18"
+  after_script:
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:$PHP_VERSION-alpine
+    - docker push $NAMESPACE:$PHP_VERSION-alpine
 
-#Alpine 8.0:
-#  <<: *build
-#  variables:
-#    PHP_VERSION: "8.0"
-#    IMAGE_VERSION: "8.0-alpine"
-
-#Alpine 8.0 Node 16:
-#  <<: *build-16
-#  variables:
-#    PHP_VERSION: "8.0"
-#    IMAGE_VERSION: "8.0-node16-alpine"
-#    BASE_IMAGE_VERSION: "8.0-alpine"
-
-#Alpine 8.0 Node 18:
-#  <<: *build-18
-#  variables:
-#    PHP_VERSION: "8.0"
-#    IMAGE_VERSION: "8.0-node18-alpine"
-#    BASE_IMAGE_VERSION: "8.0-alpine"
-
-Alpine 8.1:
+Alpine 8.0 Node 16:
   <<: *build
   variables:
-    PHP_VERSION: "8.1"
-    IMAGE_VERSION: "8.1-alpine"
+    PHP_VERSION: "8.0"
+    NODE_VERSION: "node16"
+
+Alpine 8.0 Node 18:
+  <<: *build
+  variables:
+    PHP_VERSION: "8.0"
+    NODE_VERSION: "node18"
+
+Alpine 8.0 Node 20:
+  <<: *build
+  variables:
+    PHP_VERSION: "8.0"
+    NODE_VERSION: "node20"
+  after_script:
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:$PHP_VERSION-alpine
+    - docker push $NAMESPACE:$PHP_VERSION-alpine
 
 Alpine 8.1 Node 16:
-  <<: *build-16
+  <<: *build
   variables:
     PHP_VERSION: "8.1"
-    IMAGE_VERSION: "8.1-node16-alpine"
-    BASE_IMAGE_VERSION: "8.1-alpine"
+    NODE_VERSION: "node16"
 
 Alpine 8.1 Node 18:
-  <<: *build-18
+  <<: *build
   variables:
     PHP_VERSION: "8.1"
-    IMAGE_VERSION: "8.1-node18-alpine"
-    BASE_IMAGE_VERSION: "8.1-alpine"
+    NODE_VERSION: "node18"
 
-Alpine 8.2:
+Alpine 8.1 Node 20:
   <<: *build
   variables:
-    PHP_VERSION: "8.2"
-    IMAGE_VERSION: "8.2-alpine"
+    PHP_VERSION: "8.1"
+    NODE_VERSION: "node20"
+  after_script:
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:$PHP_VERSION-alpine
+    - docker push $NAMESPACE:$PHP_VERSION-alpine
 
 Alpine 8.2 Node 16:
-  <<: *build-16
+  <<: *build
   variables:
     PHP_VERSION: "8.2"
-    IMAGE_VERSION: "8.2-node16-alpine"
-    BASE_IMAGE_VERSION: "8.2-alpine"
+    NODE_VERSION: "node16"
 
 Alpine 8.2 Node 18:
-  <<: *build-18
+  <<: *build
   variables:
     PHP_VERSION: "8.2"
-    IMAGE_VERSION: "8.2-node18-alpine"
-    BASE_IMAGE_VERSION: "8.2-alpine"
+    NODE_VERSION: "node18"
 
-Alpine 8.3:
+Alpine 8.2 Node 20:
+  <<: *build
+  variables:
+    PHP_VERSION: "8.2"
+    NODE_VERSION: "node20"
+  after_script:
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:$PHP_VERSION-alpine
+    - docker push $NAMESPACE:$PHP_VERSION-alpine
+
+Alpine 8.3 Node 16:
   <<: *build
   variables:
     PHP_VERSION: "8.3"
-    IMAGE_VERSION: "8.3-alpine"
-  after_script:
-    - docker tag $NAMESPACE:$IMAGE_VERSION $NAMESPACE:latest-alpine
-    - docker push $NAMESPACE:latest-alpine
-    - docker tag $NAMESPACE:$IMAGE_VERSION $NAMESPACE:latest
-    - docker push $NAMESPACE:latest
-
-Alpine 8.3 Node 16:
-  <<: *build-16
-  variables:
-    PHP_VERSION: "8.3"
-    IMAGE_VERSION: "8.3-node16-alpine"
-    BASE_IMAGE_VERSION: "8.3-alpine"
+    NODE_VERSION: "node16"
 
 Alpine 8.3 Node 18:
-  <<: *build-18
+  <<: *build
   variables:
     PHP_VERSION: "8.3"
-    IMAGE_VERSION: "8.3-node18-alpine"
-    BASE_IMAGE_VERSION: "8.3-alpine"
+    NODE_VERSION: "node18"
+
+Alpine 8.3 Node 20:
+  <<: *build
+  variables:
+    PHP_VERSION: "8.3"
+    NODE_VERSION: "node20"
+  after_script:
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:$PHP_VERSION-alpine
+    - docker push $NAMESPACE:$PHP_VERSION-alpine
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:latest-alpine
+    - docker push $NAMESPACE:latest-alpine
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:latest
+    - docker push $NAMESPACE:latest

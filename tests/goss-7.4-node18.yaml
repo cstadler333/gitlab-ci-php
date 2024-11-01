@@ -10,6 +10,10 @@ command:
     exit-status: 0
     stdout:
       - "2."
+  composer1 --version:
+    exit-status: 0
+    stdout:
+      - "1."
   node --version:
     exit-status: 0
     stdout:

@@ -16,18 +16,34 @@
 
 > CURRENTLY ONLY ALPINE IMAGES!
 
-- `7.4-alpine` [(7.4/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/7.4/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/7.4-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=7.4-alpine)
-- `8.0-alpine` [(8.0/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.0/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-alpine)
-- `8.1-alpine` [(8.1/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.1/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-alpine)
-- `8.2-alpine` [(8.2/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.2/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.2-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.2-alpine)
-- `8.3-alpine` [(8.3/alpine/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/8.3/alpine/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.3-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.3-alpine)
+- `7.4-node14-alpine` [(php7/node14/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php7/node14/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/7.4-node14-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=7.4-node14-alpine)
+- `7.4-node16-alpine` [(php7/node16/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php7/node16/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/7.4-node16-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=7.4-node16-alpine)
+- `7.4-node18-alpine` [(php7/node18/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php7/node18/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/7.4-node18-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=7.4-node18-alpine)
+- `8.0-node16-alpine` [(php/node16/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node16/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-node16-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-node16-alpine)
+- `8.0-node18-alpine` [(php/node18/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node18/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-node18-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-node18-alpine)
+- `8.0-node20-alpine` [(php/node20/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node20/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.0-node20-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.0-node20-alpine)
+- `8.1-node16-alpine` [(php/node16/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node16/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-node16-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-node16-alpine)
+- `8.1-node18-alpine` [(php/node18/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node18/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-node18-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-node18-alpine)
+- `8.1-node20-alpine` [(php/node20/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node20/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.1-node20-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.1-node20-alpine)
+- `8.2-node16-alpine` [(php/node16/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node16/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.2-node16-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.2-node16-alpine)
+- `8.2-node18-alpine` [(php/node18/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node18/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.2-node18-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.2-node18-alpine)
+- `8.2-node20-alpine` [(php/node20/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node20/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.2-node20-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.2-node20-alpine)
+- `8.3-node16-alpine` [(php/node16/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node16/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.3-node16-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.3-node16-alpine)
+- `8.3-node18-alpine` [(php/node18/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node18/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.3-node18-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.3-node18-alpine)
+- `8.3-node20-alpine` [(php/node20/Dockerfile)](https://github.com/cstadler333/gitlab-ci-php/blob/master/php/node20/Dockerfile) - [![Version](https://img.shields.io/docker/v/cstadler333/gitlab-ci-php/8.3-node20-alpine?style=for-the-badge&logo=docker)](https://hub.docker.com/r/cstadler333/gitlab-ci-php/tags?name=8.3-node20-alpine)
 
-All versions come with:
+All latest versions come with:
 
 - [Composer 2](https://getcomposer.org/)
 - [Node 20](https://nodejs.org/en/)
 - [NPM 10](https://www.npmjs.com/)
 - [Yarn](https://yarnpkg.com)
+
+Alternative versions available with:
+
+- [Composer 1](https://getcomposer.org/) (only PHP 7.4 images)
+- [Node 18](https://nodejs.org/en/) and [NPM 10](https://www.npmjs.com/)
+- [Node 16](https://nodejs.org/en/) and [NPM 8](https://www.npmjs.com/)
 
 ---
 

@@ -1,11 +1,22 @@
-FROM php:8.0-alpine
+ARG PHP_VERSION="8.3"
+ARG BUILD_DATE=""
+ARG VCS_REF=""
 
-ARG BUILD_DATE
-ARG VCS_REF
+FROM php:$PHP_VERSION-alpine
+
+ENV IMAGE_USER php
+ENV HOME /home/$IMAGE_USER
+ENV COMPOSER_HOME $HOME/.composer
+ENV PATH $HOME/.yarn/bin:$PATH
+ENV GOSS_VERSION "0.4.9"
+ENV NODE_VERSION 16
+ENV NPM_VERSION 8
+ENV YARN_VERSION latest
+ENV PHP_VERSION ${PHP_VERSION}
 
 LABEL maintainer="Christopher Stadler <cstadler@smthdiff.com>" \
-    PHP="8.0" \
-    NODE="20" \
+    PHP=$PHP_VERSION \
+    NODE=$NODE_VERSION \
     org.label-schema.name="cstadler333/gitlab-ci-php" \
     org.label-schema.description="Docker image for build and test PHP applications with Gitlab CI" \
     org.label-schema.build-date=$BUILD_DATE \
@@ -13,26 +24,14 @@ LABEL maintainer="Christopher Stadler <cstadler@smthdiff.com>" \
     org.label-schema.vcs-url="https://github.com/cstadler333/gitlab-ci-php" \
     org.label-schema.vcs-ref=$VCS_REF
 
-# Set correct environment variables
-ENV IMAGE_USER=php
-ENV HOME=/home/$IMAGE_USER
-ENV COMPOSER_HOME=$HOME/.composer
-ENV PATH=$HOME/.yarn/bin:$PATH
-ENV GOSS_VERSION="0.4.8"
-ENV NODE_VERSION=20
-ENV NPM_VERSION=10
-ENV YARN_VERSION=latest
-ENV PHP_VERSION=8.0
-
 WORKDIR /tmp
 
-COPY ./php/scripts/alpine/*.sh /tmp/
+COPY ./scripts/*.sh /tmp/
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
-COPY --from=node:20-alpine /usr/local/bin/node /usr/local/bin/
-COPY --from=node:20-alpine /usr/local/lib/* /usr/local/lib/
-COPY --from=node:20-alpine /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
+COPY --from=node:16-alpine /usr/local/bin/node /usr/local/bin/
+COPY --from=node:16-alpine /usr/local/lib/* /usr/local/lib/
+COPY --from=node:16-alpine /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
 
-# COPY INSTALL SCRIPTS
 RUN chmod +x /tmp/*.sh \
     && adduser -D $IMAGE_USER \
     && mkdir -p /var/www/html \
