@@ -135,6 +135,27 @@ Alpine 8.3 Node 20:
   after_script:
     - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:$PHP_VERSION-alpine
     - docker push $NAMESPACE:$PHP_VERSION-alpine
+
+Alpine 8.4 Node 16:
+  <<: *build
+  variables:
+    PHP_VERSION: "8.4"
+    NODE_VERSION: "node16"
+
+Alpine 8.4 Node 18:
+  <<: *build
+  variables:
+    PHP_VERSION: "8.4"
+    NODE_VERSION: "node18"
+
+Alpine 8.4 Node 20:
+  <<: *build
+  variables:
+    PHP_VERSION: "8.4"
+    NODE_VERSION: "node20"
+  after_script:
+    - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:$PHP_VERSION-alpine
+    - docker push $NAMESPACE:$PHP_VERSION-alpine
     - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:latest-alpine
     - docker push $NAMESPACE:latest-alpine
     - docker tag $NAMESPACE:$PHP_VERSION-$NODE_VERSION-alpine $NAMESPACE:latest
