@@ -53,7 +53,6 @@ command:
       - gmagick
       - gmp
       - iconv
-      - imap
       - intl
       - mbstring
       - memcached
@@ -62,19 +61,13 @@ command:
       - pcntl
       - pdo_mysql
       - redis
-      - soap
       - sodium
-      - xdebug
       - xml
       - xmlrpc
       - xsl
       - zip
 
 file:
-  /usr/local/etc/php/conf.d/20-xdebug.ini:
-    exists: true
-    contents:
-      - xdebug.mode
   /usr/local/etc/php/conf.d/zz-conf.ini:
     exists: true
     contents:

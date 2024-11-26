@@ -36,18 +36,15 @@ apk --update --no-cache add \
     libzip-dev \
     zlib-dev
 
-PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl
-docker-php-ext-install -j "$(nproc)" imap
-
-docker-php-ext-install -j "$(nproc)" bcmath bz2 calendar exif gmp intl mysqli opcache pcntl pdo_mysql soap xsl zip
+docker-php-ext-install -j "$(nproc)" bcmath bz2 calendar exif gmp intl mysqli opcache pcntl pdo_mysql xsl zip
 
 docker-php-source delete
 
 docker-php-ext-configure gd --with-freetype --with-jpeg
 docker-php-ext-install -j "$(nproc)" gd
 
-pecl install apcu amqp gmagick-beta memcached redis xdebug \
-    && docker-php-ext-enable apcu amqp gmagick memcached redis xdebug
+pecl install apcu amqp gmagick-beta memcached redis \
+    && docker-php-ext-enable apcu amqp gmagick memcached redis
 
 { \
     echo 'opcache.enable=1'; \
@@ -73,5 +70,3 @@ pecl install apcu amqp gmagick-beta memcached redis xdebug \
 } > /usr/local/etc/php/conf.d/apcu-recommended.ini
 
 echo "memory_limit=1G" > /usr/local/etc/php/conf.d/zz-conf.ini
-
-echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/20-xdebug.ini
