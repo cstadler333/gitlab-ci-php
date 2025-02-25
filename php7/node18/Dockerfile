@@ -33,8 +33,7 @@ COPY ./php7/scripts/*.sh /tmp/
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 COPY --from=composer/composer:1-bin /composer /usr/bin/composer1
 COPY --from=node:18-alpine /usr/local/bin/node /usr/local/bin/
-COPY --from=node:18-alpine /usr/local/lib/* /usr/local/lib/
-COPY --from=node:18-alpine /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
+COPY --from=node:18-alpine /usr/local/lib/node_modules /usr/local/lib/
 
 RUN chmod +x /tmp/*.sh \
     && adduser -D $IMAGE_USER \

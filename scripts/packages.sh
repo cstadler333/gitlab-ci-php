@@ -8,7 +8,7 @@ apk --update --no-cache add \
     git \
     grep \
     jq \
-    libc-dev \
+    musl-dev \
     make \
     mariadb-client \
     openssh-client \

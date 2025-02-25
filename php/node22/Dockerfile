@@ -10,7 +10,7 @@ ENV COMPOSER_HOME=$HOME/.composer
 ENV PATH=$HOME/.yarn/bin:$PATH
 ENV GOSS_VERSION="0.4.9"
 ENV NODE_VERSION=22
-ENV NPM_VERSION=10
+ENV NPM_VERSION=11
 ENV YARN_VERSION=latest
 ENV PHP_VERSION=${PHP_VERSION}
 ENV BUILD_DATE=${BUILD_DATE}
@@ -31,8 +31,7 @@ WORKDIR /tmp
 COPY ./scripts/*.sh /tmp/
 COPY --from=composer/composer:2-bin /composer /usr/bin/composer
 COPY --from=node:22-alpine /usr/local/bin/node /usr/local/bin/
-COPY --from=node:22-alpine /usr/local/lib/* /usr/local/lib/
-COPY --from=node:22-alpine /usr/lib/libgcc* /usr/lib/libstdc* /usr/lib/* /usr/lib/
+COPY --from=node:22-alpine /usr/local/lib/node_modules /usr/local/lib/
 
 RUN chmod +x /tmp/*.sh \
     && adduser -D $IMAGE_USER \
